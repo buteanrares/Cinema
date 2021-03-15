@@ -41,4 +41,3 @@ class UndoService:
     def __apply_operation(self, operation: Operationsss):
         operation.apply_action()
         self.__list_for_undo.append(operation)
-
