@@ -16,7 +16,7 @@ def run_tests():
         loader.loadTestsFromTestCase(ClientcardTest),
         loader.loadTestsFromTestCase(GenericRepositoryTest)
     ]
-    runner = unittest.TextTestRunner(verbosity=0)
+    runner = unittest.TextTestRunner(verbosity=2)
     runner.run(unittest.TestSuite(all_suites))
 
 
