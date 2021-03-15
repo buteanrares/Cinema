@@ -17,7 +17,7 @@
 - [x] Removal of all movies inside a datetime interval
 - [x] Custom bonus points gifting to clients whose birthdate is equal to a given day 
 - [x] Text-based binary search implemented for all domain objects 
-- [x] Populate domain objects with custom amount
+- [x] Populate domain objects with custom number of entities
 - [x] Optimized undo & redo operations using lambda functions
 - [x] Movie permutations - divide and conquer
 - [x] Broad UnitTesting 
