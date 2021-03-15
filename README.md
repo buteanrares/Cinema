@@ -1,5 +1,5 @@
 # Cinema
- ## Application implemented with Python using OOP and Architecture Stratification. Designed for cinema management, supporting movies, clientcards and reservations.
+ ## Python application using OOP and Architecture Stratification. Designed for cinema management, supporting movies, clientcards and reservations.
  
  ### Cinema application with the following functionalities:
 - [x] CRUD operations  for:
