@@ -25,4 +25,4 @@
 > NOTES: 
 > * Clientcard SSN is unique
 > * Clients accumulate 10% of movie price as bonus points
-
+> * Reservations can be made on in-schedule movies only
