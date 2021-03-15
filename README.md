@@ -9,7 +9,7 @@
       - ID, surname, forename, SSN, birthdate, registration date, points
   - Reservation
       - ID, movie ID, clientcard ID, date, time
-- [x] Saving and reading locally with serialization into .pickle files
+- [x] Saving and reading locally with serialization into/from .pickle files
 - [x] Listing implemented for all domain objects, with extended functionalities:
     - Listing reservations by datetime interval
     - Listing most popular movies based on reservations number
