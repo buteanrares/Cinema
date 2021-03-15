@@ -4,13 +4,11 @@ from repository.exceptions import RepositoryError
 
 
 class GenericFileRepository:
-
     def __init__(self, fileName):
         self.__storage = {}
         self.__fileName = fileName
 
     def __loadFromFile(self):
-
         try:
             with open(self.__fileName, 'rb') as fread:
                 self.__storage = pickle.load(fread)
@@ -20,7 +18,6 @@ class GenericFileRepository:
             self.__storage.clear()
 
     def __saveToFile(self):
-
         with open(self.__fileName, 'wb') as fwrite:
             pickle.dump(self.__storage, fwrite)
 

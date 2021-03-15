@@ -25,8 +25,8 @@ def random_date(start, end, prop):
 
 
 class MovieService(MovieValidator):
-
-    def __init__(self, movie_repository, movie_validator, reservation_repository, undo_service: UndoService):
+    def __init__(self, movie_repository, movie_validator,
+                 reservation_repository, undo_service: UndoService):
         self.__movie_repository = movie_repository
         self.__movie_validator = movie_validator
         self.__reservation_repository = reservation_repository
@@ -85,10 +85,14 @@ class MovieService(MovieValidator):
         """
         Populates movies with n movies with random attributes
         """
-        titleList = ["The Godfather", "The Shawshank Redemption", "Raging Bull", "Casablanca", "Citizen Kane",
-                     "Forrest Gump", "Star Wars: Episode IV - A New Hope", "Whiplash", "Boyhood", "The Master",
-                     "Before Midnight", "Spotlight", "Bohemian Rhapsody", "Black Swan", "Stories We Tell",
-                     "Angry Men", "The Dark Knight", "Inception", "Matrix", "Goodfellas", "Joker", "Seven Samurai"]
+        titleList = [
+            "The Godfather", "The Shawshank Redemption", "Raging Bull",
+            "Casablanca", "Citizen Kane", "Forrest Gump",
+            "Star Wars: Episode IV - A New Hope", "Whiplash", "Boyhood",
+            "The Master", "Before Midnight", "Spotlight", "Bohemian Rhapsody",
+            "Black Swan", "Stories We Tell", "Angry Men", "The Dark Knight",
+            "Inception", "Matrix", "Goodfellas", "Joker", "Seven Samurai"
+        ]
         random.seed()
         moviesList = self.__movie_repository.read()
         movieIDs = []
@@ -99,8 +103,9 @@ class MovieService(MovieValidator):
                 ID = random.randint(1, 9999999)
                 if ID not in movieIDs:
                     break
-            movie = Movie(ID, random.choice(titleList), random.randint(1940, 2018),
-                          random.randint(5, 50), random.choice([True, False]))
+            movie = Movie(ID, random.choice(titleList),
+                          random.randint(1940, 2018), random.randint(5, 50),
+                          random.choice([True, False]))
             self.__movie_validator.validate(movie)
             action = lambda: self.__movie_repository.create(movie)
             reverse = lambda result: self.__movie_repository.delete(ID)
@@ -135,8 +140,11 @@ class MovieService(MovieValidator):
                 max_per_id[movieID] = 0
             else:
                 max_per_id[movieID] += 1
-        new_moviesList = list(filter(lambda movie: movie.getID() in max_per_id, moviesList))
-        final_list = my_sorted(new_moviesList, key=lambda movie: max_per_id[movie.getID()], reverse=True)
+        new_moviesList = list(
+            filter(lambda movie: movie.getID() in max_per_id, moviesList))
+        final_list = my_sorted(new_moviesList,
+                               key=lambda movie: max_per_id[movie.getID()],
+                               reverse=True)
         list_of_res = []
         for movie in final_list:
             list_of_res.append(max_per_id[movie.getID()])
@@ -166,14 +174,15 @@ class MovieService(MovieValidator):
         for list_of_id in permuted_list_of_id:
             intermediate_list_of_movies = []
             for id_to_append in list_of_id:
-                intermediate_list_of_movies.append(self.__movie_repository.read(id_to_append))
+                intermediate_list_of_movies.append(
+                    self.__movie_repository.read(id_to_append))
             list_of_permuted_movies.append(intermediate_list_of_movies)
         return list_of_permuted_movies
 
 
 class ReservationService(ReservationValidator):
-
-    def __init__(self, reservation_repository, reservation_validator, movie_repository, clientcard_repository,
+    def __init__(self, reservation_repository, reservation_validator,
+                 movie_repository, clientcard_repository,
                  undo_service: UndoService):
         self.__reservation_repository = reservation_repository
         self.__reservation_validator = reservation_validator
@@ -185,7 +194,8 @@ class ReservationService(ReservationValidator):
         movie = self.__movie_repository.read(movie_ID)
         clientcard = self.__clientcard_repository.read(clientcard_ID)
         if movie.getInSchedule():
-            clientcard.setPoints(clientcard.getPoints() + int((10 / 100 * movie.getPrice())))
+            clientcard.setPoints(clientcard.getPoints() +
+                                 int((10 / 100 * movie.getPrice())))
             reservation = Reservation(ID, movie_ID, clientcard_ID, date, _time)
             self.__reservation_validator.validate(reservation)
             self.__clientcard_repository.update(clientcard)
@@ -195,9 +205,11 @@ class ReservationService(ReservationValidator):
         else:
             raise ValueError("That movie is no longer in schedule.")
 
-    def updateReservation(self, reservationID, reservationMovieId, reservationClientcardId, reservationDate,
+    def updateReservation(self, reservationID, reservationMovieId,
+                          reservationClientcardId, reservationDate,
                           reservationTime):
-        reservation = Reservation(reservationID, reservationMovieId, reservationClientcardId, reservationDate,
+        reservation = Reservation(reservationID, reservationMovieId,
+                                  reservationClientcardId, reservationDate,
                                   reservationTime)
         self.__reservation_validator.validate(reservation)
         self.__reservation_repository.update(reservation)
@@ -208,7 +220,8 @@ class ReservationService(ReservationValidator):
         else:
             res = self.__reservation_repository.read(reservation_id)
             self.__reservation_repository.delete(reservation_id)
-            action = lambda: self.__reservation_repository.delete(reservation_id)
+            action = lambda: self.__reservation_repository.delete(
+                reservation_id)
             reverse = lambda result: self.__reservation_repository.create(res)
             self.__undo_service.add_new_operation(action, reverse)
 
@@ -258,9 +271,13 @@ class ReservationService(ReservationValidator):
         clientcardsList = self.__clientcard_repository.read()
         for clientcard in clientcardsList:
             clientcardIDs.append(clientcard.getID())
-        timeList = ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00',
-                    '19:30',
-                    '20:00', '20:30', '21:00', '21:30', '22:00', '22:30']
+        timeList = [
+            '10:15', '10:30', '10:45', '11:00', '11:15', '11:30', '11:45',
+            '12:00', '12:15', '12:30', '12:45', '14:00', '14:15', '14:30',
+            '14:45', '15:00', '15:15', '15:30', '15:45', '16:00', '16:15',
+            '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+            '20:00', '20:30', '21:00', '21:30', '22:00', '22:30'
+        ]
         random.seed()
         reservationsList = self.__reservation_repository.read()
         reservationIDs = []
@@ -273,12 +290,14 @@ class ReservationService(ReservationValidator):
                     break
             rngClientCardID = random.choice(clientcardIDs)
             rngMovieID = random.choice(movieIDs)
-            reservation = Reservation(ID, rngMovieID, rngClientCardID,
-                                      str(random_date("01/01/2015", "01/01/2019", random.random())),
-                                      random.choice(timeList))
+            reservation = Reservation(
+                ID, rngMovieID, rngClientCardID,
+                str(random_date("01/01/2015", "01/01/2019", random.random())),
+                random.choice(timeList))
             clientcard = self.__clientcard_repository.read(rngClientCardID)
             movie = self.__movie_repository.read(rngMovieID)
-            clientcard.setPoints(clientcard.getPoints() + int((10 / 100 * movie.getPrice())))
+            clientcard.setPoints(clientcard.getPoints() +
+                                 int((10 / 100 * movie.getPrice())))
             self.__reservation_validator.validate(reservation)
             action = lambda: self.__reservation_repository.create(reservation)
             reverse = lambda result: self.__reservation_repository.delete(ID)
@@ -287,25 +306,30 @@ class ReservationService(ReservationValidator):
 
 
 class ClientcardService(ClientcardValidator):
-    def __init__(self, clientcard_repository, clientcard_validator, reservation_repository, undo_service: UndoService):
+    def __init__(self, clientcard_repository, clientcard_validator,
+                 reservation_repository, undo_service: UndoService):
         self.__clientcard_repository = clientcard_repository
         self.__clientcard_validator = clientcard_validator
         self.__reservation_repository = reservation_repository
         self.__undo_service = undo_service
 
-    def addClientcard(self, ID, lastName, firstName, CNP, birthDate, registerDate, points):
-        clientcard = Clientcard(ID, lastName, firstName, CNP, birthDate, registerDate, points)
+    def addClientcard(self, ID, lastName, firstName, CNP, birthDate,
+                      registerDate, points):
+        clientcard = Clientcard(ID, lastName, firstName, CNP, birthDate,
+                                registerDate, points)
         self.__clientcard_validator.validate(clientcard)
         action = lambda: self.__clientcard_repository.create(clientcard)
         reverse = lambda result: self.__clientcard_repository.delete(ID)
         self.__undo_service.add_new_operation(action, reverse)
 
-    def updateClientcard(self, clientcardID, clientcardFirstName, clientcardLastname, clientcardCNP,
-                         clientcardBirthDate,
-                         clientcardRegisterDate, clientcardPoints):
-        clientcard = Clientcard(clientcardID, clientcardFirstName, clientcardLastname, clientcardCNP,
-                                clientcardBirthDate,
-                                clientcardRegisterDate, clientcardPoints)
+    def updateClientcard(self, clientcardID, clientcardFirstName,
+                         clientcardLastname, clientcardCNP,
+                         clientcardBirthDate, clientcardRegisterDate,
+                         clientcardPoints):
+        clientcard = Clientcard(clientcardID, clientcardFirstName,
+                                clientcardLastname, clientcardCNP,
+                                clientcardBirthDate, clientcardRegisterDate,
+                                clientcardPoints)
         self.__clientcard_validator.validate(clientcard)
         self.__clientcard_repository.update(clientcard)
         self.__clientcard_repository.update(clientcard)
@@ -319,8 +343,10 @@ class ClientcardService(ClientcardValidator):
             for reservation in self.__reservation_repository.read():
                 if clientcard_id == reservation.getClientcardID():
                     cc = self.__clientcard_repository.read(clientcard_id)
-                    action = lambda: self.__clientcard_repository.delete(clientcard_id)
-                    reverse = lambda result: self.__clientcard_repository.create(reservation)
+                    action = lambda: self.__clientcard_repository.delete(
+                        clientcard_id)
+                    reverse = lambda result: self.__clientcard_repository.create(
+                        reservation)
                     self.__undo_service.add_new_operation(action, reverse)
                     self.__reservation_repository.delete(reservation.getID())
 
@@ -338,7 +364,9 @@ class ClientcardService(ClientcardValidator):
 
     def showClientcardsByPts(self):
         clientcardList = self.__clientcard_repository.read()
-        clientcardList = sorted(clientcardList, key=lambda clientcard: clientcard.points, reverse=True)
+        clientcardList = sorted(clientcardList,
+                                key=lambda clientcard: clientcard.points,
+                                reverse=True)
         return clientcardList
 
     def addPoints(self, clientcard_id, price):
@@ -358,7 +386,8 @@ class ClientcardService(ClientcardValidator):
         new_CNP = cc.getCNP()
         new_BD = cc.getBirthDate()
         new_RD = cc.getRegisterDate()
-        self.updateClientcard(new_id, new_FN, new_LN, new_CNP, new_BD, new_RD, new_P)
+        self.updateClientcard(new_id, new_FN, new_LN, new_CNP, new_BD, new_RD,
+                              new_P)
         return self.__clientcard_repository.read(new_id)
 
     def giveBirthdayBonus(self, value, dateLeft, dateRight):
@@ -366,12 +395,14 @@ class ClientcardService(ClientcardValidator):
         Gives a birthday bonus
         """
         list_of_cc = self.__clientcard_repository.read_all()
-        return self.__birthdayBonusRecursive(value, dateLeft, dateRight, list_of_cc)
+        return self.__birthdayBonusRecursive(value, dateLeft, dateRight,
+                                             list_of_cc)
 
     def __birthdayBonusRecursive(self, value, dateLeft, dateRight, list_of_cc):
         if not list_of_cc:
             return []
-        updated = self.__birthdayBonusRecursive(value, dateLeft, dateRight, list_of_cc[1:])
+        updated = self.__birthdayBonusRecursive(value, dateLeft, dateRight,
+                                                list_of_cc[1:])
         first_cc = list_of_cc[0]
 
         date = first_cc.getBirthDate()
@@ -381,15 +412,22 @@ class ClientcardService(ClientcardValidator):
         dateRight = datetime.datetime.strptime(dateRight, '%d/%m/%Y')
 
         if dateLeft <= date <= dateRight:
-            updated_cc = self.__givePoints(first_cc,value)
+            updated_cc = self.__givePoints(first_cc, value)
             updated.append(updated_cc)
         return updated
 
     def populateClientcards(self, n):
-        firstNames = ['Emma', 'Olivia', 'Ava', 'Isabella', 'Sophia', 'Charlotte', 'Mia', 'Amelia', 'Harper', 'Evelyn',
-                      'Liam', 'Noah', 'William', 'James', 'Oliver', 'Benjamin', 'Elijah', 'Lucas', 'Mason', 'Logan']
-        lastNames = ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor',
-                     'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson']
+        firstNames = [
+            'Emma', 'Olivia', 'Ava', 'Isabella', 'Sophia', 'Charlotte', 'Mia',
+            'Amelia', 'Harper', 'Evelyn', 'Liam', 'Noah', 'William', 'James',
+            'Oliver', 'Benjamin', 'Elijah', 'Lucas', 'Mason', 'Logan'
+        ]
+        lastNames = [
+            'Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis',
+            'Miller', 'Wilson', 'Moore', 'Taylor', 'Thomas', 'Jackson',
+            'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Martinez',
+            'Robinson'
+        ]
         clientcardList = self.__clientcard_repository.read()
         clientcardIDs = []
         for cc in clientcardList:
@@ -400,13 +438,13 @@ class ClientcardService(ClientcardValidator):
                 ID = random.randint(1, 9999999)
                 if ID not in clientcardIDs:
                     break
-            clientcard = Clientcard(ID, random.choice(lastNames), random.choice(firstNames),
-                                    random.randint(10000, 100000),
-                                    str(random_date("01/01/1990", "01/01/2006", random.random())),
-                                    str(random_date("01/01/2012", "01/01/2019", random.random())),
-                                    random.randint(1, 50))
+            clientcard = Clientcard(
+                ID, random.choice(lastNames), random.choice(firstNames),
+                random.randint(10000, 100000),
+                str(random_date("01/01/1990", "01/01/2006", random.random())),
+                str(random_date("01/01/2012", "01/01/2019", random.random())),
+                random.randint(1, 50))
             self.__clientcard_validator.validate(clientcard)
-            self.__clientcard_repository.create(clientcard)
             action = lambda: self.__clientcard_repository.create(clientcard)
             reverse = lambda result: self.__clientcard_repository.delete(ID)
             self.__undo_service.add_new_operation(action, reverse)

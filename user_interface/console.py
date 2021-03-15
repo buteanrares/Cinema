@@ -3,8 +3,8 @@ from service import UndoService
 
 
 class Console:
-
-    def __init__(self, movies_service, reservations_service, clientcards_service, undo_service: UndoService):
+    def __init__(self, movies_service, reservations_service,
+                 clientcards_service, undo_service: UndoService):
         self.__movies_service = movies_service
         self.__reservations_service = reservations_service
         self.__clientcards_service = clientcards_service
@@ -110,7 +110,8 @@ class Console:
                 movieInSchedule = True
             else:
                 movieInSchedule = False
-            self.__movies_service.addMovie(movieID, movieTitle, movieRelease, moviePrice, movieInSchedule)
+            self.__movies_service.addMovie(movieID, movieTitle, movieRelease,
+                                           moviePrice, movieInSchedule)
             print('Movie added.')
         except KeyError:
             print('ID already exists!')
@@ -125,12 +126,9 @@ class Console:
             reservationDate = input("Give date (dd/mm/yyyy): ")
             reservationTime = input("Give time (HH:MM): ")
             if self.__movies_service.isInSchedule(reservationMovieId):
-                self.__reservations_service.addReservation(reservationID,
-                                                           reservationMovieId,
-                                                           reservationClientcardId,
-                                                           reservationDate,
-                                                           reservationTime
-                                                           )
+                self.__reservations_service.addReservation(
+                    reservationID, reservationMovieId, reservationClientcardId,
+                    reservationDate, reservationTime)
                 print("Reservation added.")
             else:
                 print("That movie is not in schedule.")
@@ -148,14 +146,10 @@ class Console:
             clientcardBirthDate = input("Birthdate (dd/mm/yyyy): ")
             clientcardRegisterDate = input("Registerdate (dd/mm/yyyy): ")
             clientcardPoints = int(input("Points: "))
-            self.__clientcards_service.addClientcard(clientcardID,
-                                                     clientcardFirstName,
-                                                     clientcardLastname,
-                                                     clientcardCNP,
-                                                     clientcardBirthDate,
-                                                     clientcardRegisterDate,
-                                                     clientcardPoints
-                                                     )
+            self.__clientcards_service.addClientcard(
+                clientcardID, clientcardFirstName, clientcardLastname,
+                clientcardCNP, clientcardBirthDate, clientcardRegisterDate,
+                clientcardPoints)
             print('Clientcard added.')
         except KeyError:
             print("ID already exists.")
@@ -173,12 +167,9 @@ class Console:
                 movieInSchedule = True
             else:
                 movieInSchedule = False
-            self.__movies_service.updateMovie(movieID,
-                                              movieTitle,
-                                              movieRelease,
-                                              moviePrice,
-                                              movieInSchedule
-                                              )
+            self.__movies_service.updateMovie(movieID, movieTitle,
+                                              movieRelease, moviePrice,
+                                              movieInSchedule)
             print('Movie updated.')
         except ValueError as ve:
             print('Error', ve)
@@ -190,12 +181,9 @@ class Console:
             reservationClientcardId = int(input("Clientcard ID: "))
             reservationDate = input("Give date (dd/mm/yyyy): ")
             reservationTime = input("Give time (HH:MM): ")
-            self.__reservations_service.updateReservation(reservationID,
-                                                          reservationMovieId,
-                                                          reservationClientcardId,
-                                                          reservationDate,
-                                                          reservationTime
-                                                          )
+            self.__reservations_service.updateReservation(
+                reservationID, reservationMovieId, reservationClientcardId,
+                reservationDate, reservationTime)
             print("Reservation updated.")
         except ValueError as ve:
             print('Error', ve)
@@ -209,34 +197,33 @@ class Console:
             clientcardBirthDate = input("Birthdate (dd/mm/yyyy): ")
             clientcardRegisterDate = input("Registerdate (dd/mm/yyyy): ")
             clientcardPoints = int(input("Points: "))
-            self.__clientcards_service.updateClientcard(clientcardID,
-                                                        clientcardFirstName,
-                                                        clientcardLastname,
-                                                        clientcardCNP,
-                                                        clientcardBirthDate,
-                                                        clientcardRegisterDate,
-                                                        clientcardPoints
-                                                        )
+            self.__clientcards_service.updateClientcard(
+                clientcardID, clientcardFirstName, clientcardLastname,
+                clientcardCNP, clientcardBirthDate, clientcardRegisterDate,
+                clientcardPoints)
             print('Clientcard updated.')
         except ValueError as ve:
             print('Error', ve)
 
     def __handle_deleteMovie(self):
-        movie_id = input("Give movie ID to delete (all to deletee all movies): ")
+        movie_id = input(
+            "Give movie ID to delete (all to deletee all movies): ")
         if movie_id != "all":
             movie_id = int(movie_id)
         self.__movies_service.deleteMovie(movie_id)
         print("Movie deleted.")
 
     def __handle_deleteReservation(self):
-        reservation_id = input("Give reservation ID to delete (all to delete all reservations): ")
+        reservation_id = input(
+            "Give reservation ID to delete (all to delete all reservations): ")
         if reservation_id != "all":
             reservation_id = int(reservation_id)
         self.__reservations_service.deleteReservation(reservation_id)
         print("Reservation deleted.")
 
     def __handle_deleteClientcard(self):
-        clientcard_id = input("Give clientcard ID to delete (all to delete all clientcards): ")
+        clientcard_id = input(
+            "Give clientcard ID to delete (all to delete all clientcards): ")
         if clientcard_id != "all":
             clientcard_id = int(clientcard_id)
         self.__clientcards_service.deleteClientcard(clientcard_id)
@@ -269,7 +256,8 @@ class Console:
     def __handle_showResBetween(self):
         timeLeft = input("First time (HH:MM):  ")
         timeRight = input("Second time (HH:MM): ")
-        resList = self.__reservations_service.showReservationsInInterval(timeLeft, timeRight)
+        resList = self.__reservations_service.showReservationsInInterval(
+            timeLeft, timeRight)
         for res in resList:
             print(str(res))
 
@@ -286,7 +274,8 @@ class Console:
     def __handle_deleteReservationsInInterval(self):
         dateLeft = input("First date (dd/mm/yyyy): ")
         dateRight = input("Second date (dd/mm/yyyy): ")
-        resList = self.__reservations_service.deleteReservationsInInterval(dateLeft, dateRight)
+        resList = self.__reservations_service.deleteReservationsInInterval(
+            dateLeft, dateRight)
         for res in resList:
             print(str(res))
 
@@ -294,7 +283,8 @@ class Console:
         dateLeft = input("First date (dd/mm/yyyy): ")
         dateRight = input("Second date (dd/mm/yyyy): ")
         value = int(input("Value to increment: "))
-        self.__clientcards_service.giveBirthdayBonus(value,dateLeft,dateRight)
+        self.__clientcards_service.giveBirthdayBonus(value, dateLeft,
+                                                     dateRight)
         print("Bonus given.")
 
     def __handle_populateMovies(self):
@@ -320,7 +310,8 @@ class Console:
             print(ve)
 
     def __handle_permutate_movies(self):
-        list_of_permuted_movies = self.__movies_service.get_movie_permutations()
+        list_of_permuted_movies = self.__movies_service.get_movie_permutations(
+        )
         for movies_list in list_of_permuted_movies:
             for movie in movies_list:
                 print(movie)
