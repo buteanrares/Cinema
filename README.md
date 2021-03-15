@@ -1,5 +1,5 @@
 # Cinema
- ## Application implemented with Python using OOP and Stratified Architecture. Designed for cinema management, supporting movies, clientcards and reservations.
+ ## Application implemented with Python using OOP and Architecture Stratification. Designed for cinema management, supporting movies, clientcards and reservations.
  
  ### Cinema application with the following functionalities:
 - [x] CRUD operations  for:
@@ -19,6 +19,7 @@
 - [x] Text-based binary search implemented for all domain objects 
 - [x] Populate domain objects with custom amount
 - [x] Optimized undo & redo operations using lambda functions
+- [x] Movie permutations - divide and conquer
 - [x] Broad UnitTesting 
 - [x] Domain-level objects validation
 
