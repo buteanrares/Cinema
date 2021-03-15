@@ -8,6 +8,7 @@ from Tests.clientcard_test import ClientcardTest
 
 
 def run_tests():
+    print("\n#\n# RUNNING TESTS\n#\n")
     loader = unittest.defaultTestLoader
     all_suites =\
          [
@@ -18,6 +19,7 @@ def run_tests():
     ]
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(unittest.TestSuite(all_suites))
+    print("\n#\n#\n#")
 
 
 if __name__ == '__main__':
