@@ -5,6 +5,7 @@ from repository.generic_repository import GenericFileRepository
 
 
 class GenericRepositoryTest(unittest.TestCase):
+
     def test_create(self):
         filename = "test.pickle"
         generic_repository = GenericFileRepository(filename)
