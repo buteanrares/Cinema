@@ -7,6 +7,8 @@ from Tests.clientcard_test import ClientcardTest
 
 
 def run_tests():
+    # Test suites runner
+
     print("\n#\n# RUNNING TESTS\n#\n")
     loader = unittest.defaultTestLoader
     all_suites =\
