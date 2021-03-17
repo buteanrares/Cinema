@@ -1,4 +1,5 @@
 class Movie:
+
     """
     Represents a movie.
     """
@@ -24,21 +25,35 @@ class Movie:
         Movie.moviesIdList.append(self.ID)
 
     def __str__(self):
-        return "{}, {}, {}, {}, {}".format(
-            self.ID,
-            self.title,
-            self.release,
-            self.price,
-            self.inSchedule
-        )
+        """String overloader for a Movie object
+
+        :return: String representing Movie data
+        :rtype: String
+        """
+        return "{}, {}, {}, {}, {}".format(self.ID, self.title, self.release,
+                                           self.price, self.inSchedule)
 
     def __eq__(self, other):
+        """Movie objects '==' comparator
+
+        :param other: Movie object 
+        :type other: Movie
+        :return: true if they are the same entity ; false otherwise
+        :rtype: bool
+        """
         if not isinstance(other, Movie):
             raise TypeError("other is not type Movie")
         return self.ID == other.ID
 
     def __ne__(self, other):
+        """Movie objects '!=' comparator
+           Opposite of __eq__
+        """
         return not self == other
+
+    #
+    # Getters
+    #
 
     def getID(self):
         return self.ID
@@ -54,3 +69,6 @@ class Movie:
 
     def getInSchedule(self):
         return self.inSchedule
+
+    #
+    #

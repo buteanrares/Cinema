@@ -6,11 +6,20 @@ from repository.in_memory_repository import InMemoryRepository
 
 class FileRepositoryInheritance(InMemoryRepository):
 
+    """In file repository class
+    """
+
     def __init__(self, filename):
+        """Parameterized constructor
+
+        :param filename: filename to store data in
+        """
         super(FileRepositoryInheritance, self).__init__()
         self.__filename = filename
 
     def __load_from_file(self):
+        """Loads data from file
+        """
         try:
             with open(self.__filename, 'r') as f_read:
                 saved_movies = json.load(f_read)
@@ -22,15 +31,18 @@ class FileRepositoryInheritance(InMemoryRepository):
             super(FileRepositoryInheritance, self).clear()
 
     def __save_to_file(self):
+        """Saves data to file
+        """
         to_save = []
         for movie in super(FileRepositoryInheritance, self).read():
-            movie_repr = [movie.getID(),
-                          movie.getTitle(),
-                          movie.getRelease(),
-                          movie.getPrice(),
-                          movie.getTicket(),
-                          movie.getInSchedule()
-                          ]
+            movie_repr = [
+                movie.getID(),
+                movie.getTitle(),
+                movie.getRelease(),
+                movie.getPrice(),
+                movie.getTicket(),
+                movie.getInSchedule()
+            ]
             to_save.append(movie_repr)
         with open(self.__filename, 'w') as f_write:
             json.dump(to_save, f_write)
@@ -65,9 +77,13 @@ class FileRepositoryInheritance(InMemoryRepository):
         self.__save_to_file()
 
     def delete(self, movie_id):
+        """Deletes a movie by id
+        """
         self.__load_from_file()
         super(FileRepositoryInheritance, self).delete(movie_id)
         self.__save_to_file()
 
     def clear(self):
+        """Clears all data inside repository
+        """
         super(FileRepositoryInheritance, self).clear()

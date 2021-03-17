@@ -3,6 +3,7 @@ from domain.reservation import Reservation
 
 
 class ReservationTest(unittest.TestCase):
+    # Reservations test case
 
     def test_Reservation(self):
         id = 1

@@ -5,7 +5,13 @@ from domain.clientcard import Clientcard
 
 class ClientcardTest(unittest.TestCase):
 
+    """Clientcard testcase
+    """
+
     def test_Clientcard(self):
+        """Clientcard tester
+        """
+
         id = 2
         lastName = "Butean"
         firstName = "Rares"

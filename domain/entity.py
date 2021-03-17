@@ -1,6 +1,8 @@
 class Entity:
 
-    def __init__(self,id_entity):
+    """Entity class for domain-level objects"""
+
+    def __init__(self, id_entity):
         self.__id_entity = id_entity
 
     @property

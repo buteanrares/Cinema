@@ -4,6 +4,7 @@ from domain.reservation import Reservation
 from domain.clientcard import Clientcard
 
 
+@DeprecationWarning     # No longer used
 class MovieFileRepository:
 
     def __init__(self, filename):
@@ -25,12 +26,13 @@ class MovieFileRepository:
     def __save_to_file(self):
         to_save = []
         for movie in self.__storage.values():
-            movie_repr = [movie.getID(),
-                          movie.getTitle(),
-                          movie.getRelease(),
-                          movie.getPrice(),
-                          movie.getInSchedule()
-                          ]
+            movie_repr = [
+                movie.getID(),
+                movie.getTitle(),
+                movie.getRelease(),
+                movie.getPrice(),
+                movie.getInSchedule()
+            ]
             to_save.append(movie_repr)
         with open(self.__filename, 'w') as f_write:
             json.dump(to_save, f_write)
@@ -88,7 +90,9 @@ class MovieFileRepository:
         self.__save_to_file()
 
 
+@DeprecationWarning     # No longer used
 class ReservationFileRepository:
+
     def __init__(self, filename):
         self.__filename = filename
         self.__storage = {}
@@ -107,12 +111,13 @@ class ReservationFileRepository:
     def __save_to_file(self):
         to_save = []
         for reservation in self.__storage.values():
-            reservation_repr = [reservation.getID(),
-                                reservation.getMovieID(),
-                                reservation.getClientcardID(),
-                                reservation.getDate(),
-                                reservation.getTime(),
-                                ]
+            reservation_repr = [
+                reservation.getID(),
+                reservation.getMovieID(),
+                reservation.getClientcardID(),
+                reservation.getDate(),
+                reservation.getTime(),
+            ]
             to_save.append(reservation_repr)
         with open(self.__filename, 'w') as f_write:
             json.dump(to_save, f_write)
@@ -169,6 +174,7 @@ class ReservationFileRepository:
         self.__save_to_file()
 
 
+@DeprecationWarning     # No longer used
 class ClientcardFileRepository:
 
     def __init__(self, filename):
@@ -189,14 +195,15 @@ class ClientcardFileRepository:
     def __save_to_file(self):
         to_save = []
         for clientcard in self.__storage.values():
-            clientcard_repr = [clientcard.getID(),
-                               clientcard.getFirstName(),
-                               clientcard.getLastName(),
-                               clientcard.getCNP(),
-                               clientcard.getBirthDate(),
-                               clientcard.getRegisterDate(),
-                               clientcard.getPoints()
-                               ]
+            clientcard_repr = [
+                clientcard.getID(),
+                clientcard.getFirstName(),
+                clientcard.getLastName(),
+                clientcard.getCNP(),
+                clientcard.getBirthDate(),
+                clientcard.getRegisterDate(),
+                clientcard.getPoints()
+            ]
             to_save.append(clientcard_repr)
         with open(self.__filename, 'w') as f_write:
             json.dump(to_save, f_write)

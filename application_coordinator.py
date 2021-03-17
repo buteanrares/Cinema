@@ -11,6 +11,8 @@ from user_interface.console import Console
 
 
 def main():
+    # Program driver function
+
     movie_repository = GenericFileRepository('movies.pickle')
     reservation_repository = GenericFileRepository('reservations.pickle')
     clientcard_repository = GenericFileRepository('clientcards.pickle')

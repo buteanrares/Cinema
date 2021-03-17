@@ -1,4 +1,16 @@
 def my_sorted(list, key=None, reverse=False):
+    """Custom list sort function
+
+    :param list: list to sort
+    :type list: list
+    :param key: search key, defaults to None
+    :type key:  optional
+    :param reverse: ascending/descending, defaults to False
+    :type reverse: bool, optional
+    :return: sorted list
+    :rtype: list
+    """
+
     new_list = list[:]
     for i in range(len(new_list) - 1):
         for j in range(i + 1, len(new_list)):

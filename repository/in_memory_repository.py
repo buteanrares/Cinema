@@ -1,7 +1,9 @@
 from domain.movie import Movie
 
 
+@DeprecationWarning     # No longer used
 class InMemoryRepository:
+
     """
     Repository for storing data in memory
     """
@@ -80,4 +82,4 @@ def test_InMemoryRepository():
     assert repo.read(1) is None
 
 
-test_InMemoryRepository()
+# test_InMemoryRepository()

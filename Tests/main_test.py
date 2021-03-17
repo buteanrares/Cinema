@@ -1,13 +1,14 @@
 import unittest
 
 from Tests.generic_repository_test import GenericRepositoryTest
-#from Tests.generic_repository_test import GenericRepositoryTest
 from Tests.movie_test import MovieTest
 from Tests.reservation_test import ReservationTest
 from Tests.clientcard_test import ClientcardTest
 
 
 def run_tests():
+    # Test suites runner
+
     print("\n#\n# RUNNING TESTS\n#\n")
     loader = unittest.defaultTestLoader
     all_suites =\

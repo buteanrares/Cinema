@@ -1,4 +1,14 @@
 def binary_search(list, searched_number):
+    """Custom binary search function
+
+    :param list: list to search in
+    :type list: list
+    :param searched_number: number to search for
+    :type searched_number: int
+    :return: True if item exists ; false otherwise
+    :rtype: bool
+    """
+
     st = 0
     dr = len(list) - 1
 
@@ -11,4 +21,3 @@ def binary_search(list, searched_number):
         else:
             dr = m - 1
     return False
-
