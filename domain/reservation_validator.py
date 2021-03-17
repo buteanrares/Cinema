@@ -2,10 +2,19 @@ import datetime
 
 
 class ReservationValidator:
+    # Validator class for Reservation objects
 
     def validate(self, reservation):
+        """Validation method for a reservation object
+
+        :param reservation: reservation obj. to validate
+        :type reservation: Reservation
+        :raises ValueError: if reservation obj. is not valid
+        """
+
         error_messages = []
-        if not (isinstance(reservation.getID(), int)) or reservation.getID() < 0:
+        if not (isinstance(reservation.getID(),
+                           int)) or reservation.getID() < 0:
             error_messages.append("ID must be a pozitive integer.")
         try:
             time = str(reservation.getTime())

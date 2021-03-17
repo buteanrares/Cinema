@@ -1,11 +1,13 @@
 class MovieValidator:
 
     def validate(self, movie):
+        """Validation method for a movie object
+
+        :param movie: movie obj. to validate
+        :type movie: movie
+        :raises ValueError: if movie obj. is not valid
         """
-        Validator for Movie type object.
-        :param movie: Movie type object.
-        :return:
-        """
+
         error_messages = []
         if not (isinstance(movie.getID(), int)) or movie.getID() < 0:
             error_messages.append("Movie ID must be a positive integer.")
