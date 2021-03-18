@@ -3,7 +3,7 @@ import json
 from domain.movie import Movie
 from repository.in_memory_repository import InMemoryRepository
 
-
+@DeprecationWarning # No longer used
 class FileRepositoryInheritance(InMemoryRepository):
 
     """In file repository class
