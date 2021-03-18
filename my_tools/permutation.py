@@ -1,4 +1,12 @@
 def permutations(n):
+    """Permutates n times
+
+    :param n: number of permutations
+    :type n: int
+    :return: permutation result
+    :rtype: list
+    """
+
     results = []
 
     def inner(current_permutation):
@@ -15,6 +23,13 @@ def permutations(n):
 
 
 def permutation_list(list):
+    """Permutates a list
+
+    :param list: list to permutate
+    :type list: list
+    :return: permutations of list
+    :rtype: list
+    """
     n = len(list)
     return permutations(n)
 

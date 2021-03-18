@@ -3,4 +3,7 @@
     "editor.formatOnType": true,
     "diffEditor.codeLens": true,
     "python.formatting.provider": "yapf",
+    "editor.inlineHints.fontFamily": "Fira Code Retina",
+    "editor.fontFamily": "Fira Code Retina",
+    "editor.fontLigatures": true,
 }
